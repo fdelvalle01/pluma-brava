@@ -1,0 +1,46 @@
+{
+  "group_id": "123af795-df6c-4d11-bc4a-74330fcf48a6",
+  "states": [
+    {
+      "character": {
+        "id": "6be725b8-27e6-422a-adfc-0ff74a238bba",
+        "name": "Idle",
+        "prompt": "Create a 2D pixel-art character for a humorous retro side-scrolling action platformer set in Santiago, Chile.  Character: A tired office-worker zombie commuting during rush hour. An adult human with a slightly hunched posture, pale gray-green skin, heavy dark circles under the eyes, messy dark hair and a vacant, exhausted expression.  Clothing: A wrinkled light-blue office shirt, loosened dark-red tie, charcoal trousers and worn black shoes. Carry a small brown briefcase in one hand, held low beside the body. The briefcase will later be used for a short melee attack.  Personality: Comically exhausted and mildly grumpy, like someone who missed the bus after a long workday. Funny and recognizable rather than terrifying. No gore.  Pose and style: - Single neutral standing pose, ready to be animated later. - Strict side-scrolling camera, not top-down or isometric. - For the right-facing view, show a clear side profile facing right. - Compact, slightly cartoonish proportions with a readable head and briefcase. - 48x48 pixel canvas. - Crisp pixel edges, limited palette, simple shading and a clean dark outline. - Keep the entire character and briefcase inside the canvas. - Transparent background. - No text, scenery, logos, extra characters or animation frames. - No firearms, armor or additional accessories.  The character should fit a playful pixel-art game where an urban pigeon fights by spitting Chilean hot dogs.",
+        "size": {
+          "width": 68,
+          "height": 68
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "side",
+        "created_at": "2026-10-03T23:24:47.968264+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "south-east": "Idle/rotations/south-east.png",
+          "east": "Idle/rotations/east.png",
+          "north-east": "Idle/rotations/north-east.png",
+          "north": "Idle/rotations/north.png",
+          "north-west": "Idle/rotations/north-west.png",
+          "west": "Idle/rotations/west.png",
+          "south-west": "Idle/rotations/south-west.png"
+        },
+        "animations": {
+          "Create_a_melee_briefcase_attack_animation_for_this": {
+            "east": [
+              "Idle/animations/Create_a_melee_briefcase_attack_animation_for_this/east/frame_000.png",
+              "Idle/animations/Create_a_melee_briefcase_attack_animation_for_this/east/frame_001.png",
+              "Idle/animations/Create_a_melee_briefcase_attack_animation_for_this/east/frame_002.png",
+              "Idle/animations/Create_a_melee_briefcase_attack_animation_for_this/east/frame_003.png",
+              "Idle/animations/Create_a_melee_briefcase_attack_animation_for_this/east/frame_004.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-10-03T23:30:16.691035"
+}

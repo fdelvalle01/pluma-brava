@@ -1,0 +1,25 @@
+hp = 2;
+patrol_speed = 0.6;
+patrol_radius = 96;
+patrol_origin_x = x;
+facing = 1;
+vsp = 0;
+gravity_force = 0.3;
+max_fall_speed = 6;
+enemy_state = "patrol";
+state_steps = 0;
+windup_steps = 30;
+strike_steps = 8;
+recovery_steps = 40;
+detection_range = 32;
+attack_reach = 20;
+attack_damage = 1;
+attack_used = false;
+hurt_steps = 0;
+image_xscale = facing;
+
+sprite_set_offset(spr_zombie_oficinista_attack, 42, 76);
+attack_hit_frame = 3;
+attack_recovery_frame = 4;
+recovery_pose_steps = 8;
+image_speed = 0;

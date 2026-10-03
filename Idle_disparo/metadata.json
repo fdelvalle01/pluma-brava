@@ -1,0 +1,46 @@
+{
+  "group_id": "a5a0f58e-8b12-43cb-9595-24c7ef4d185e",
+  "states": [
+    {
+      "character": {
+        "id": "9d455eee-5f8d-4bcd-90a6-bb91c76c0595",
+        "name": "Idle",
+        "prompt": "Create a 4-frame beak-spitting attack animation for the same pigeon character shown in the reference image, for a retro 2D side-scrolling platformer.\n\nCharacter:\nPreserve the reference pigeon exactly: gray body, darker head, small orange eye, orange legs, identical palette, proportions and pixel-art style.\n\nAnimation sequence, in this exact order:\n1. Idle: standing normally, facing right.\n2. Wind-up: pull the head clearly BACK toward the tail, slightly tilting the closed beak upward, preparing to spit. Keep the feet planted.\n3. Release: thrust the head and neck FORWARD, opening the beak horizontally to spit food toward the right.\n4. Recovery: return to the original standing pose.\n\nThe backward preparation and forward release must be clearly readable. Animate mainly the head and neck, with a small supporting body movement.\n\nRequirements:\n- Strict side view, facing right throughout.\n- Four consecutive animation frames, not four directional views.\n- Same canvas size, character scale and foot position in every frame.\n- 32x32 pixels per frame.\n- Transparent background.\n- Crisp pixel edges, no blur or smoothing.\n- Wings folded; no flying, jumping or full-body rotation.\n- No weapons, food, projectiles, effects, text or scenery.\n\nThe food projectile will be a separate object in the game. Show only the pigeon performing the spitting motion.",
+        "size": {
+          "width": 32,
+          "height": 32
+        },
+        "template_id": "custom",
+        "directions": 8,
+        "view": "side",
+        "created_at": "2026-10-03T22:58:17.728876+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "south-east": "Idle/rotations/south-east.png",
+          "east": "Idle/rotations/east.png",
+          "north-east": "Idle/rotations/north-east.png",
+          "north": "Idle/rotations/north.png",
+          "north-west": "Idle/rotations/north-west.png",
+          "west": "Idle/rotations/west.png",
+          "south-west": "Idle/rotations/south-west.png"
+        },
+        "animations": {
+          "Exaggerated_cartoon_pigeon_spitting_attack_side_vi": {
+            "south-east": [
+              "Idle/animations/Exaggerated_cartoon_pigeon_spitting_attack_side_vi/south-east/frame_000.png",
+              "Idle/animations/Exaggerated_cartoon_pigeon_spitting_attack_side_vi/south-east/frame_001.png",
+              "Idle/animations/Exaggerated_cartoon_pigeon_spitting_attack_side_vi/south-east/frame_002.png",
+              "Idle/animations/Exaggerated_cartoon_pigeon_spitting_attack_side_vi/south-east/frame_003.png",
+              "Idle/animations/Exaggerated_cartoon_pigeon_spitting_attack_side_vi/south-east/frame_004.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-10-03T23:18:10.877489"
+}

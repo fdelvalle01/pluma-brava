@@ -1,0 +1,36 @@
+{
+  "group_id": "167c7c2d-4dc9-4e23-b376-ed3113f46d9b",
+  "states": [
+    {
+      "character": {
+        "id": "3b54d720-51e3-4506-ad80-fa04ecabe29b",
+        "name": "Idle",
+        "prompt": "Create a 2D pixel art jump animation for the same pigeon character used in my retro platformer game.  Character: A small urban pigeon hero in side view, facing right, with a gray body, darker head, small orange eye, orange legs, and a simple readable pixel-art silhouette.  Animation goal: This is NOT full flying. This is a platformer jump animation. When the pigeon jumps, it should briefly flap or open its wings to stay airborne. The motion should feel like a short jump with a bird-like airborne pose.  Style: Retro 2D pixel art, game-ready, transparent background, 32x32 sprite proportions, same character design, same palette, consistent scale and silhouette, no background, no extra objects.  Please generate frames for: - jump start - rising in air - apex - falling  Use a clean side-view platformer style. Keep the pigeon readable and consistent with the base sprite.",
+        "size": {
+          "width": 32,
+          "height": 32
+        },
+        "template_id": "custom",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-03T21:25:23.170023+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "south-east": "Idle/rotations/south-east.png",
+          "east": "Idle/rotations/east.png",
+          "north-east": "Idle/rotations/north-east.png",
+          "north": "Idle/rotations/north.png",
+          "north-west": "Idle/rotations/north-west.png",
+          "west": "Idle/rotations/west.png",
+          "south-west": "Idle/rotations/south-west.png"
+        },
+        "animations": {}
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-10-03T21:39:57.258770"
+}

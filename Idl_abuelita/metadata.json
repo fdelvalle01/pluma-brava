@@ -1,0 +1,46 @@
+{
+  "group_id": "91999e98-7a81-494d-a422-93e531215668",
+  "states": [
+    {
+      "character": {
+        "id": "b9a18dfe-97e5-4720-8809-c0144fde7a6c",
+        "name": "Idle",
+        "prompt": "Create a friendly elderly Chilean woman NPC for a humorous retro 2D side-scrolling game set in Santiago.\n\nShe is short and plump, with a warm rounded face, small glasses and short curly gray hair. She wears a dark floral dress, a deep-green apron with light trim and pockets, comfortable beige shoes, and a knitted cream shawl draped over her shoulders.\n\nShe is the neighborhood grandmother who feeds pigeons at the bus stop. Make her affectionate and recognizable, with a relaxed posture and a gentle smile.\n\nShe holds a small paper bag of birdseed in one hand at waist height. Her other hand is free to reach into the bag and scatter food.\n\nSingle neutral standing pose. Strict side-scroller view. For the East direction, face RIGHT.\n\n48x48 pixel art, clear silhouette, low detail, limited palette, crisp pixel edges, transparent background. Keep the whole character visible, including shoes and shawl.\n\nNo packaging, text, accessories from the reference box, scenery or other characters. Do not generate an animation sheet yet.",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "side",
+        "created_at": "2026-10-03T23:56:56.018942+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "south-east": "Idle/rotations/south-east.png",
+          "east": "Idle/rotations/east.png",
+          "north-east": "Idle/rotations/north-east.png",
+          "north": "Idle/rotations/north.png",
+          "north-west": "Idle/rotations/north-west.png",
+          "west": "Idle/rotations/west.png",
+          "south-west": "Idle/rotations/south-west.png"
+        },
+        "animations": {
+          "Animate_this_same_elderly_woman_feeding_pigeons_si": {
+            "south": [
+              "Idle/animations/Animate_this_same_elderly_woman_feeding_pigeons_si/south/frame_000.png",
+              "Idle/animations/Animate_this_same_elderly_woman_feeding_pigeons_si/south/frame_001.png",
+              "Idle/animations/Animate_this_same_elderly_woman_feeding_pigeons_si/south/frame_002.png",
+              "Idle/animations/Animate_this_same_elderly_woman_feeding_pigeons_si/south/frame_003.png",
+              "Idle/animations/Animate_this_same_elderly_woman_feeding_pigeons_si/south/frame_004.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-10-04T00:04:40.781739"
+}

@@ -1,7 +1,16 @@
 hp = 2;
 patrol_speed = 0.6;
+chase_speed = 2.0;
+return_speed = 1.0;
 patrol_radius = 96;
 patrol_origin_x = x;
+notice_range = 160;
+notice_height = 64;
+lose_range = 220;
+chase_limit = 240;
+lost_sight_steps = 60;
+alert_steps = 0;
+last_seen_x = x;
 facing = 1;
 vsp = 0;
 gravity_force = 0.3;

@@ -24,7 +24,32 @@ if (bbox_top > room_height) {
 var grounded = place_meeting(x, y + 1, obj_solid);
 var target_player = instance_nearest(x, y, obj_player);
 
-if (enemy_state != "patrol") {
+var sees_player = false;
+var can_attack = false;
+if (instance_exists(target_player)) {
+    var sight_range = notice_range;
+    if (enemy_state == "chase") {
+        sight_range = lose_range;
+    }
+    sees_player = abs(target_player.x - x) <= sight_range
+        && abs(target_player.y - y) <= notice_height
+        && collision_line(x, (bbox_top + bbox_bottom) / 2,
+            target_player.x, (target_player.bbox_top + target_player.bbox_bottom) / 2,
+            obj_solid, false, true) == noone;
+    can_attack = sees_player && grounded
+        && abs(target_player.x - x) <= detection_range
+        && target_player.bbox_bottom >= bbox_top
+        && target_player.bbox_top <= bbox_bottom;
+}
+
+if (sees_player) {
+    alert_steps = lost_sight_steps;
+    last_seen_x = target_player.x;
+} else {
+    alert_steps = max(0, alert_steps - 1);
+}
+
+if (enemy_state == "windup" || enemy_state == "strike" || enemy_state == "recovery") {
     state_steps -= 1;
     if (state_steps <= 0) {
         switch (enemy_state) {
@@ -37,41 +62,47 @@ if (enemy_state != "patrol") {
                 state_steps = recovery_steps;
                 break;
             case "recovery":
-                enemy_state = "patrol";
+                enemy_state = "chase";
                 break;
         }
     }
 }
 
+if (sees_player && (enemy_state == "patrol"
+    || (enemy_state == "return" && abs(x - patrol_origin_x) <= patrol_radius))) {
+    enemy_state = "chase";
+}
+
+var move_amount = 0;
 switch (enemy_state) {
     case "patrol":
-        var can_attack = false;
-        if (grounded && instance_exists(target_player)) {
-            can_attack = abs(target_player.x - x) <= detection_range
-                && target_player.bbox_bottom >= bbox_top
-                && target_player.bbox_top <= bbox_bottom
-                && collision_line(x, (bbox_top + bbox_bottom) / 2,
-                    target_player.x, (target_player.bbox_top + target_player.bbox_bottom) / 2,
-                    obj_solid, false, true) == noone;
+        if (abs(x + facing * patrol_speed - patrol_origin_x) > patrol_radius) {
+            facing = -facing;
         }
+        move_amount = facing * patrol_speed;
+        break;
 
-        if (can_attack) {
+    case "chase":
+        if (alert_steps <= 0 || abs(x - patrol_origin_x) >= chase_limit) {
+            enemy_state = "return";
+        } else if (can_attack) {
             if (target_player.x != x) {
                 facing = sign(target_player.x - x);
             }
             enemy_state = "windup";
             state_steps = windup_steps;
             attack_used = false;
-        } else if (grounded) {
-            var patrol_move = facing * patrol_speed;
-            if (abs(x + patrol_move - patrol_origin_x) > patrol_radius
-                || place_meeting(x + patrol_move, y, obj_solid)
-                || !place_meeting(x + patrol_move + facing * 8, y + 1, obj_solid)
-                || bbox_left + patrol_move < 0 || bbox_right + patrol_move >= room_width) {
-                facing = -facing;
-            } else {
-                x += patrol_move;
-            }
+        } else {
+            move_amount = clamp(last_seen_x - x, -chase_speed, chase_speed);
+        }
+        break;
+
+    case "return":
+        if (abs(x - patrol_origin_x) <= return_speed) {
+            move_amount = patrol_origin_x - x;
+            enemy_state = "patrol";
+        } else {
+            move_amount = sign(patrol_origin_x - x) * return_speed;
         }
         break;
 
@@ -104,6 +135,25 @@ switch (enemy_state) {
 
     case "recovery":
         break;
+}
+
+if (grounded && move_amount != 0) {
+    facing = sign(move_amount);
+    image_xscale = facing;
+    var remaining_move = abs(move_amount);
+    while (remaining_move > 0) {
+        var move_step = min(1, remaining_move) * facing;
+        if (place_meeting(x + move_step, y, obj_solid)
+            || !place_meeting(x + move_step + facing * 8, y + 1, obj_solid)
+            || bbox_left + move_step < 0 || bbox_right + move_step >= room_width) {
+            if (enemy_state == "patrol") {
+                facing = -facing;
+            }
+            break;
+        }
+        x += move_step;
+        remaining_move -= abs(move_step);
+    }
 }
 
 image_xscale = facing;

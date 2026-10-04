@@ -23,7 +23,7 @@
   ],
   "name":"spr_ground",
   "nineSlice":null,
-  "origin":7,
+  "origin":6,
   "parent":{
     "name":"PlumaBrava",
     "path":"PlumaBrava.yyp",
@@ -75,7 +75,7 @@
     ],
     "visibleRange":null,
     "volume":1.0,
-    "xorigin":16,
+    "xorigin":0,
     "yorigin":32,
   },
   "swatchColours":null,

@@ -1,10 +1,59 @@
 # Pluma Brava — estado y siguiente tarea
 
-**Última actualización de este registro:** 2026-10-03.  
+**Última actualización de este registro:** 2026-10-04.
 **Origen del estado inicial:** conversación y capturas de Francisco; no una inspección directa del repositorio.  
-**Prioridad:** probar la animación importada del oficinista y su sincronización con el golpe. Francisco confirmó previamente el ciclo jugable de completos y zombi.
+**Prioridad:** probar el golpe de ala con X contra zombis y ajustar su sincronía visual. Combo de tres golpes, daño de picada y comida curativa pendientes.
 
-## 1. Confirmado hasta ahora
+## Estado vigente — consolidación del 2026-10-04
+
+Fase actual: prototipo jugable de movimiento y combate de la paloma, con escenario de pruebas de Santiago. Todavía no hay demo completa, jefe ni progresión. Este resumen prevalece sobre las entradas históricas que aparecen después.
+
+### Funcionalidades y evidencia
+
+| Área | Implementación actual | Validación disponible |
+| --- | --- | --- |
+| Movimiento | Flechas, orientación, gravedad y colisiones con obj_solid; máscara fija spr_player. | Movimiento y salto base confirmados por Francisco. Pruebas específicas de paredes/techos pendientes. |
+| Salto y vuelo | Doble toque de Espacio en suelo (ventana 15 pasos); toques aéreos para aletear; descenso lento. | Código inspeccionado y controles simulados; prueba completa de la versión actual pendiente. |
+| Carga e impulso | Mantener Espacio 12 pasos inicia carga en suelo o aire; animación en bucle, potencia máxima tras 36 pasos adicionales. Soltar impulsa; se recarga al aterrizar. | Francisco confirmó el resultado tras ajustar la repetición; falta una regresión completa de colisiones. |
+| Completos | Recogida automática de uno, transporte en pico, lanzamiento con Z en el tercer frame; daño 1, colisión con sólidos y caducidad. | Recoger y lanzar confirmado jugando; casos límite de daño/colisiones pendientes. |
+| Picada | Z en aire sin comida; preparación, caída rápida, pose sostenida y retorno al control al aterrizar. | Francisco confirmó la base jugable junto al efecto; revisión y simulación de lógica previas. |
+| Polvo de impacto | obj_dive_impact aparece una vez al aterrizar de picada, siete frames a 12 FPS, desaparece al terminar. | Francisco confirmó funcionamiento y retocó el arte. No hace daño de área. |
+| Golpe de ala | X reproduce nueve frames; daño frontal 1 en índice 4, una vez por enemigo, alcance 24 y bloqueo por pared. | Implementado, revisión y simulación de lógica; sin confirmación jugable posterior. |
+| Zombi oficinista | Patrulla, detecta con línea de visión, persigue más rápido, anuncia golpe de maletín, recupera y vuelve a su zona. Tiene 2 hp. | Código y simulaciones revisados; balance y prueba integral pendientes. |
+| Salud | 3 hp, cada golpe válido resta 1, invulnerabilidad de 60 pasos; a cero se reinicia la room. HUD dibuja un icono por hp. | Implementado; validación integral pendiente. El arte de pluma se cambió a corazón conservando spr_vida_pluma. |
+| Abuelita | Animación por proximidad con espera entre ciclos; la paloma se dibuja delante. | Animación confirmada en conversación. No genera semillas ni cura todavía. |
+| Escenario | Room1 de 1366×768, cámaras desactivadas, suelo, completos, paradero, zombis y abuelita. | Recursos inspeccionados; recorrido de demo y cámara pendientes. |
+| Fondo de Santiago | spr_fondo_santiago importado a 512×288. | Background de Room1 sigue sin sprite asignado en disco; integración pendiente. |
+
+### Controles actuales
+
+- Flechas izquierda/derecha: desplazarse y orientar al personaje.
+- Espacio: doble toque en suelo para saltar; cada nueva pulsación aérea aletea. Mantener carga; soltar ejecuta el impulso.
+- Z con completo: dispara. Z en aire sin completo: picada. En suelo sin completo no ataca.
+- X: golpe individual de ala, también en aire; detiene desplazamiento horizontal y conserva gravedad. No repite al mantener ni interrumpe otra acción activa.
+- No existe aún el combo X-X-X ni un control implementado para shurikens.
+
+### Arte y recursos
+
+Francisco dirige, importa y retoca el arte. PixelLab proporciona borradores de animación; los agentes conectan GML. Se conservan las exportaciones fuente junto a los sprites del proyecto. Los sprites PixelLab de suelo, vuelo, disparo, carga, impulso, picada y golpe están conectados.
+
+spr_vida_pluma conserva su nombre por compatibilidad pero contiene cuatro frames de corazón; Draw GUI utiliza solo el frame 0, por lo que no hay latido animado. spr_player_wing_attack_pixellab_1 está registrado con once frames, pero el código usa spr_player_wing_attack_pixellab de nueve; no asumir que la variante está conectada.
+
+### Pendientes y siguiente paso
+
+1. Probar X frente a un zombi, a ambos lados, comprobar daño una vez, recuperación y conservación de los controles anteriores. Ajustar ritmo/alcance con Francisco.
+2. Diseñar las animaciones enlazadas del combo X-X-X: primer corte, corte contrario y remate giratorio con avance. Pendiente de implementación.
+3. Plumas shuriken: munición independiente de los corazones, descontada al crear el proyectil; contador, recogibles y balance pendientes. C y 5/10 plumas son propuestas, no reglas cerradas.
+4. Daño al impactar de picada, semillas curativas de la abuelita y asignación del fondo; tareas independientes aún pendientes.
+5. Stamina, viento por altura, reaparición al caer fuera del mapa, cámara, checkpoints, audio, campaña y bosses siguen en backlog.
+
+### Verificación y Git
+
+Las simulaciones anteriores usan funciones de motor sustituidas: no son compilación GML ni pruebas jugables. La compilación histórica de movimiento no valida todas las mecánicas actuales. En esta consolidación se verificaron 27 recursos registrados, 19 sprites y 80 imágenes de frames: sin archivos faltantes ni referencias de sprites/objetos no registradas en el GML inspeccionado. La revisión de whitespace de Git pasó. No se ejecutó una nueva compilación ni partida.
+
+Repositorio Git existente, rama actual development, remoto origin en github.com/fdelvalle01/pluma-brava. Francisco solicita guardar el estado completo y publicarlo en esa misma rama; no crear otra rama ni hacer force-push. El hash y resultado del envío se informan al finalizar, sin registrarlos por adelantado como hechos.
+
+## 1. Confirmaciones históricas del punto de partida
 
 | Elemento | Evidencia disponible |
 | --- | --- |
@@ -23,14 +72,14 @@
 
 La confirmación del salto no equivale a haber probado las colisiones laterales, con techos o al aterrizar sobre las plataformas.
 
-## 2. Pendiente de verificar
+## 2. Verificaciones pendientes del punto de partida
 
 - La caída y el aterrizaje sobre suelo y plataformas sin atravesarlos.
 - Si las colisiones laterales y contra la parte inferior de los bloques funcionan.
 - Si el jugador puede reaparecer al caer fuera del escenario; no hay implementación confirmada.
 - Si la orientación conserva la dirección al detenerse y no atasca al jugador junto a un bloque.
 - La nueva mecánica de aleteo y planeo durante una prueba jugable completa.
-- Los valores reales de la room, cámara y escalado.
+- El escalado y encuadre definitivo. Room1 está verificada en 1366×768 y sin cámaras habilitadas.
 
 **El salto está confirmado por Francisco.** Las demás pruebas jugables de colisión permanecen pendientes.
 
@@ -103,7 +152,9 @@ Estados: `pendiente`, `en_curso`, `implementado_sin_verificar`, `verificado` y `
 
 Esta tabla expresa un orden propuesto. No autoriza implementar las tareas siguientes ni impide que Francisco cambie la prioridad. Las animaciones pueden incorporarse antes cuando sean útiles.
 
-## 7. PB-002A — aleteo y planeo pendiente de validación
+## 7. PB-002A — registro histórico de aleteo y planeo
+
+Esta sección conserva la implementación inicial del 2026-10-03. El doble toque, la carga y los sprites PixelLab posteriores se describen en el estado vigente; no utilizar este apartado como especificación actual de controles.
 
 ### Objetivo
 
@@ -135,6 +186,66 @@ Revisión estática: Create y Step conservan el movimiento horizontal, salto ini
 Francisco debe recargar `PlumaBrava.yyp` y probar suelo → salto → varias pulsaciones aéreas → soltar → aterrizar → repetir. No avanzar a estamina ni otra mecánica.
 
 ## 8. Bitácora
+
+### 2026-10-04 — primer golpe de ala con X
+
+Francisco importó spr_player_wing_attack_pixellab: nueve frames de 36×36. Create/Step de obj_player conectan una pulsación de X a una reproducción completa (0.35 frames por paso). El índice 4 dispara una comprobación de daño frontal de alcance 24 más allá de la máscara; cada zombi alcanzado recibe 1 daño y el destello existente, con destrucción al agotar hp. La comprobación ocurre una sola vez por ataque e incluye línea libre de sólidos. Dirección bloqueada y sin desplazamiento horizontal durante el golpe, con gravedad y colisiones conservadas; se permite iniciar en suelo o aire y llevando comida. No interrumpe disparo, carga, impulso ni picada; durante el golpe no se inician esas acciones. Al terminar restaura animación normal. Origen (18,34) ajustado en ejecución, sin editar arte ni metadatos.
+
+Simulación Node del Step con motor sustituido pasó sincronía del daño, una aplicación por golpe, frente/espalda/alcance, ataque reflejado, obstrucción por pared, derrota, restauración y exclusión de otras acciones. Revisión estática/diff sin errores. No compilado ni probado jugando: `implementado_sin_verificar`. Siguiente acción: recargar el proyecto guardado, golpear un zombi a ambos lados con X y comprobar que dos golpes separados lo derrotan; mantener X no debe repetir. Revisar también pose, comida en pico, uso aéreo y regreso a controles normales. Parámetros ajustables: wing_frame_step, wing_hit_frame, wing_reach, wing_damage. El combo X-X-X y los shurikens todavía son diseño pendiente.
+
+### 2026-10-04 — efecto de polvo al aterrizar de picada
+
+Francisco creó obj_dive_impact con Create y Animation End registrados y spr_dive_impact de 64×32 con siete frames. Se añadieron Create_0.gml y Other_7.gml a esos eventos vacíos: origen centrado en ejecución (32,32), reproducción a 12 FPS y destrucción al terminar. El origen importado era (64,32). Step de obj_player crea una nube en (x, bbox_bottom + 1), delante del jugador, al salir de picada por contacto con suelo; los aterrizajes normales no la crean. Se conserva el arte y los metadatos. Efecto visual solamente; daño cercano pendiente.
+
+Revisión estática de eventos, referencia y transición realizada; compilación y prueba jugable pendientes. Estado `implementado_sin_verificar`. Siguiente acción: recargar el mismo proyecto guardado y comprobar una nube por picada, su desaparición y ausencia de polvo en saltos normales.
+
+### 2026-10-04 — picada aérea conectada
+
+Sprite importado `spr_player_dive_pixellab`: siete frames de 36×36. Create/Step de obj_player conectan Z en aire sin comida y sin otra acción activa a una picada vertical: preparación, descenso de 10 píxeles por paso desde el índice 2, último frame sostenido y regreso al estado normal al aterrizar. Se bloquean aleteo, desplazamiento horizontal y recogida durante descenso. Movimiento vertical en subpasos de hasta un píxel para comprobar suelo. Origen provisional (18,34) en ejecución; máscara conservada. No incluye daño de impacto ni animación de golpe al suelo; son la siguiente tarea visual y funcional.
+
+Estado `implementado_sin_verificar`. Diff revisado; simulación Node con motor sustituido pasó activación aérea, avance de frames, descenso, bloqueo de Espacio, aterrizaje con tolerancia inferior a un píxel, restauración, exclusión en suelo/disparo y pose final. No compilado ni probado en GameMaker. La pose final importada se ve inclinada y requiere revisión visual jugando. Siguiente acción: recargar el mismo proyecto guardado y pulsar Z sin completo a suficiente altura; revisar animación, aterrizaje y conservación del disparo con comida.
+
+### 2026-10-03 — animación de carga en bucle
+
+Francisco observó que la carga reproducía una sola secuencia y pidió repetición hasta soltar Espacio. Create/Step de obj_player ahora separan `charge_frame` del contador de potencia: los cinco frames se repiten a 0.15 frames por paso mientras mantiene la tecla, aunque la potencia ya esté completa. Soltar conserva el impulso existente. No se modificaron sprites ni otros controles. Estado `implementado_sin_verificar`; pendiente de compilación y prueba jugable. Siguiente acción: recargar el proyecto guardado, mantener Espacio varios ciclos y soltar para comprobar el lanzamiento.
+
+### 2026-10-03 — doble toque y carga desde el suelo
+
+Decisión vigente de Francisco: un toque aislado de Espacio no salta; dos pulsaciones dentro de 15 pasos saltan. Mantener 12 pasos inicia carga desde suelo o aire y soltar activa el impulso. Carga completa en 36 pasos adicionales, recorriendo los cinco frames y manteniendo el último; en suelo permanece quieta, en aire desciende lentamente. Se corrigió la cancelación incondicional al tocar suelo, que impedía conservar la animación de carga. El aleteo por pulsación aérea continúa igual. Estos controles sustituyen al salto inmediato descrito en entradas históricas.
+
+Archivos: Create/Step de obj_player, sin modificar recursos. Revisión estática y diff sin errores; simulación Node del Step con entrada, suelo y motor simulados pasó toque único, doble toque, vencimiento de ventana, cinco frames, carga en suelo, lanzamiento al soltar, carga conservada al aterrizar y restauración de velocidad de animación. Estado `implementado_sin_verificar`: no compilado ni probado jugando en GameMaker. Siguiente acción: recargar el proyecto guardado y probar doble toque y carga completa desde suelo, luego repetir en aire.
+
+### 2026-10-03 — carga e impulso aéreo
+
+Francisco importó `spr_player_charge_pixellab` y `spr_player_burst_pixellab`, ambos de 40×40 con cinco frames. Se conectaron en Create/Step de `obj_player`, sin editar arte, metadatos ni rooms. Mantener Espacio 12 pasos en el aire inicia carga, completada tras otros 24; durante la carga desciende a 0.8 píxeles por paso. Soltar reproduce el impulso y aplica velocidad vertical de 7 a 11 en el tercer frame, según carga, con empuje horizontal de 1.5 durante el resto de la animación. Un impulso por aterrizaje; los toques breves conservan salto/aleteo. Z no inicia disparo durante carga/impulso y no se carga durante un disparo existente. Aterrizar cancela la acción y restaura la animación normal. Orígenes ajustados en ejecución a (20,36); máscara original conservada.
+
+Estado: `implementado_sin_verificar`. Revisión estática y `git diff --check` sin errores; simulación con Node del bloque de control aéreo extraído del GML pasó salto, carga, descenso, impulso, restauración, límite por aterrizaje, aleteo y exclusión durante disparo. Esta simulación sustituye entradas y suelo: no compila GML ni valida colisiones reales. Pendientes compilación y prueba jugable en GameMaker, incluyendo sincronía visual del tercer frame, paredes/techos, aterrizaje mientras carga, giro, comida sostenida y Z después del impulso. No se implementó picado, golpe al suelo ni stamina. Siguiente acción: recargar el mismo proyecto y probar Espacio corto, mantenido y soltado en ambos sentidos.
+
+### 2026-10-03 — persecución y HUD de plumas
+
+Francisco pidió detección por proximidad, persecución más rápida y tres plumas de vida. Preparó `spr_vida_pluma` de 64×64, origen (32, 32), y registró Draw GUI en `obj_player`; se añadió el código a ese evento existente sin cambiar metadatos.
+
+El zombi patrulla a 0.6 px/paso, detecta hasta 160 px horizontales y 64 verticales sin sólidos entre él y la paloma, y persigue a 2 px/paso (paloma: 2.5). Durante persecución puede verla hasta 220 px; recuerda su última posición 60 pasos al perderla. Mantiene aviso y golpe cercano, deteniéndose para atacar. Tras perderla o alejarse 240 px de su punto inicial, regresa a 1 px/paso; al volver cerca puede detectarla otra vez. Movimiento en subpasos; no salta, atraviesa paredes ni busca rutas alternativas. Ante obstáculos se detiene. Puede detectar a ambos lados.
+
+Se conserva la vida existente: `max_hp = 3`, `hp = max_hp`, daño de 1 por golpe, invulnerabilidad de 60 pasos y reinicio de room al llegar a cero. Draw GUI dibuja solo las plumas restantes en la esquina superior izquierda, con tamaño visual de 32 px y margen de 16, compensando el origen del sprite sin modificarlo. No se añadió una animación de muerte ni curación automática.
+
+Archivos: Create/Step del zombi; Create y Draw GUI del jugador. Parámetros de persecución y HUD ajustables en Create. Comprobación automatizada de lógica leyendo los archivos reales en un entorno con funciones de colisión simuladas: patrulla, aceleración, aviso/golpe, un daño por ataque, bloqueo de visión, regreso, borde y conteo/posición de plumas (3, 2, 1, 0) pasaron. Esto no sustituye compilación ni prueba en GameMaker, ambas pendientes.
+
+Estado `implementado_sin_verificar`. Siguiente acción: recargar, comprobar tres plumas al iniciar, acercarse para activar persecución, escapar para observar regreso y recibir tres golpes separados (3→2→1→reinicio). Probar paredes, bordes y salto, y confirmar que las plumas permanecen fijas en pantalla.
+
+### 2026-10-03 — orden visual de abuelita y paloma
+
+Francisco confirmó que la animación de la abuelita funciona y mostró que oculta a la paloma al solaparse. Ambas instancias estaban en la capa Instances a profundidad 0. Step de la abuelita ahora mantiene su profundidad un nivel detrás del jugador, incluso durante la animación. No se modificaron room, sprites ni distancias: activa a 64 píxeles horizontales y 32 verticales, sin sólidos entre ambas, y espera 180 pasos tras cada ciclo. Revisión estática realizada; falta probar el nuevo orden visual en ejecución.
+
+### 2026-10-03 — gesto de la abuelita
+
+Francisco preparó `obj_abuelita`, con eventos Create/Step registrados, `spr_abuelita` de 48×48 y `spr_abuelita_feed` de 68×68 con cinco frames. Los eventos estaban vacíos; se completaron sin cambiar metadatos. No se encontró ninguna instancia de `obj_abuelita` en Room1 guardada en disco.
+
+Create fija en memoria orígenes (24, 48) y (34, 58), compensando el margen del lienzo de animación, y conserva una máscara estable con la base. La abuelita permanece quieta mirando South. Al detectar a la paloma a 64 píxeles horizontalmente y 32 verticalmente, sin sólidos entre ambas, reproduce una vez los cinco frames a 0.15 frames por paso. Regresa a reposo y espera 180 pasos antes de ofrecer de nuevo si la paloma sigue cerca. Son valores iniciales ajustables en Create.
+
+Solo se conectó el gesto visual: no aparecen semillas ni se modifica la vida. Para comida recogible curativa faltan sprite, objeto y eventos creados por Francisco. No se reutiliza el completo porque cumple la función de munición.
+
+Revisión estática y registros comprobados; compilación y prueba jugable pendientes. Estado `implementado_sin_verificar`. Siguiente acción: colocar `obj_abuelita` con los pies sobre el suelo, guardar/recargar y acercar/alejar la paloma; comprobar alineación y pausa entre animaciones. No se modificaron Room1 ni arte.
 
 ### 2026-10-03 — ataque animado del oficinista
 

@@ -1,6 +1,6 @@
 # Pluma Brava — Diseño y backlog
 
-Última consolidación: 2026-10-03.
+Última consolidación: 2026-10-04. Estado contrastado con código, recursos y confirmaciones de Francisco.
 Fuente: conversación «Aterrizar juego chileno» (6ac158bb-157c-83e8-9fdf-81975eecb190).
 
 Documento vivo para reunir lo construido, las reglas deseadas y las ideas futuras. Ubicación prevista: raíz de PlumaBrava, junto a `PlumaBrava.yyp`, `AGENTS.md`, `CLAUDE.md`, `GAME_CONTEXT.md` y `PROJECT_STATUS.md`.
@@ -20,6 +20,8 @@ Se usan casillas Markdown estándar; para estados intermedios se añade texto en
 
 ## Visión y alcance
 
+Prioridad vigente: probar el golpe individual de ala con X y luego desarrollar el combo X-X-X. La base usa comida desde el pico y picada; pistola, bazuca y otras armas siguen como catálogo futuro. La salud se representa con corazones y la futura munición de plumas será independiente. La lista de demo original de abajo es un antecedente, no un compromiso de implementación inmediato.
+
 Plataformas de acción lateral 2D en GameMaker/GML, con pixel art retro, humor chileno y una paloma urbana armada. Referencia jugable: control preciso, etapas temáticas y jefes con patrones, al estilo de Mega Man. El jugador recorre zonas, supera obstáculos y enemigos, encuentra armas y derrota al jefe para avanzar.
 
 La primera meta propuesta es **«Santiago se fue al demonio»**, una demo de 3–5 minutos: recorrido corto, pistola, Completazo, dos enemigos, checkpoint antes del Completo Demoníaco, victoria y opción de volver a jugar. La campaña completa iría de norte a sur; Santiago se desarrolla primero.
@@ -32,8 +34,10 @@ Pudú y quique se mencionaron como alternativas iniciales de protagonista. Se co
 
 ## Movimiento
 
+- [ ] Por validar MOV-13 — Z en aire sin comida inicia picada vertical con animación y descenso rápido; aterrizar restaura control. Implementado en Create/Step; pendiente de compilación y prueba jugable. Daño y animación de golpe al suelo pendientes.
+
 - [x] MOV-01 — Movimiento horizontal de `obj_player`. Confirmado por el usuario: «solo me puedo mover en x» y luego «paloma salta se mueve».
-- [x] MOV-02 — Salto con Espacio desde el suelo. La confirmación posterior del usuario cierra la antigua duda sobre si el salto funcionaba.
+- [ ] Por validar MOV-02 — Salto desde suelo con doble toque de Espacio dentro de 15 pasos. Sustituye por decisión de Francisco al salto inmediato anteriormente probado; un toque aislado no salta.
 - [x] MOV-03 — Gravedad y aterrizaje sobre el suelo del prototipo con `obj_solid`, según el avance confirmado en la conversación.
 - [ ] Por validar MOV-04 — Orientación izquierda/derecha implementada y confirmada por Francisco según PROJECT_STATUS.md; falta validar conservación al detenerse y giro junto a bloques.
 - [ ] Por validar MOV-05 — Colisiones contra paredes, techos y esquinas; girar junto a bloques sin desplazamientos ni atascos. No dar por probados estos casos por haber validado el suelo.
@@ -44,15 +48,21 @@ Pudú y quique se mencionaron como alternativas iniciales de protagonista. Se co
 - [ ] Pendiente MOV-10 — Reaparición en el punto inicial al caer fuera del escenario.
 - [ ] Idea MOV-11 — Ajustar sensación de control: velocidad, altura del salto, frenado y respuesta al aterrizar.
 
-Regla deseada del vuelo: pulsaciones individuales, no ascenso continuo por mantener Espacio. El aleteo repetido sustituye la idea inicial de un doble salto tradicional. Hasta introducir stamina, la duración máxima del vuelo todavía no estará limitada por energía.
+- [ ] Por validar MOV-12 — Mantener Espacio carga desde suelo o aire y soltar lanza. En suelo permanece quieta; en aire desciende. Fuerza proporcional y un impulso por aterrizaje. La carga repite sus cinco frames hasta soltar, incluso si aterriza; la potencia se limita independientemente de la animación. GML conectado; pendiente de compilación y prueba jugable.
+
+Regla vigente del vuelo: pulsaciones individuales para aletear; mantener Espacio carga un impulso que se activa al soltar, no ascenso continuo. El aleteo repetido sustituye la idea inicial de un doble salto tradicional. Hasta introducir stamina, la duración máxima del vuelo todavía no estará limitada por energía.
 
 ## Animación
+
+- [x] ANI-15 — Polvo de impacto de picada: siete frames a 12 FPS y desaparición al terminar. Francisco confirmó funcionamiento y retocó el arte el 2026-10-04. Daño cercano pendiente.
+
+- [ ] Por validar ANI-14 — Abuelita frontal colocada: animación de cinco frames, activación por proximidad y pausa entre ciclos. Animación confirmada; falta prueba completa de alcance, repetición y profundidad. No cura todavía.
 
 - [ ] Por validar ANI-13 — Oficinista base East y ataque de cinco frames conectados. Golpe sincronizado con el cuarto frame observado, recuperación y reflejo horizontal; origen ajustado en ejecución. Compilación y prueba visual pendientes.
 
 - [ ] Por validar ANI-12 — Disparo conectado a `spr_player_shoot_pixellab`: cinco frames presentes en disco, origen ajustado en ejecución y lanzamiento en el tercero. Se conserva reflejo horizontal; posición fina del completo, compilación y prueba jugable pendientes.
 
-- [ ] Por validar ANI-11 — Sprites PixelLab conectados para suelo y vuelo, reflejo horizontal existente conservado. Ocho frames de vuelo a 10 FPS; orígenes ajustados en ejecución. Pendientes compilación, alineación visual y giro en ambos sentidos. Ataque mantiene el sprite anterior; base importada con alas abiertas.
+- [x] ANI-11 — Sprites PixelLab de suelo y vuelo conectados; Francisco confirmó que se veían bien y con mayor fluidez. Vuelo de ocho frames a 10 FPS, reflejo horizontal y orígenes ajustados en ejecución. Pruebas específicas de alineación junto a bloques pendientes.
 
 - [x] ANI-01 — Sprite base `spr_player` disponible y utilizado por la paloma.
 - [x] ANI-02 — `spr_player_jump` creado y animación aérea visible. Confirmación del usuario: «ya veo la animacion».
@@ -67,11 +77,15 @@ Usar el mismo personaje, paleta, escala y origen entre estados. Priorizar una vi
 
 ## Combate y armas
 
+- [ ] Por validar COM-16 — X ejecuta un golpe individual de ala con nueve frames, daño frontal 1 en el quinto frame, una aplicación por enemigo y comprobación de pared. Implementado el 2026-10-04; compilación y prueba jugable pendientes.
+- [ ] Pendiente COM-17 — Combo X-X-X: primer corte de ala, corte contrario y remate giratorio con avance que atraviesa enemigos y se detiene ante sólidos. Requiere animaciones enlazadas y ventana de encadenamiento; aún no implementado.
+- [ ] Pendiente COM-18 — Lanzamiento de plumas shuriken con munición separada de salud, consumida al crear cada proyectil. Animaciones, recogibles, contador y balance pendientes. C es control propuesto.
+
 Decisión vigente (2026-10-03): el primer ataque será comida lanzada desde el pico. Sustituye la prioridad inicial de pistola y bazuca con munición ilimitada; las armas listadas más abajo quedan como catálogo futuro. La animación lleva la cabeza hacia atrás y luego hacia delante; el completo será un objeto separado.
 
 - [x] ANI-09 — Usuario creó `spr_player_shoot` con cuatro frames; recurso registrado y origen (16, 32) comprobados en disco.
 - [x] ANI-10 — Animación de ataque con Z implementada; Francisco confirma «quedo listo» después de probarla. Confirmación general, sin dar por cerradas pruebas específicas de vuelo o colisiones.
-- [x] COM-13 — Recoger un completo, llevarlo en el pico y lanzarlo con Z: Francisco confirmó el ciclo jugando y añadió más completos. Daño a enemigos pendiente; no se infieren pruebas exhaustivas de colisión o caducidad.
+- [x] COM-13 — Recoger un completo, llevarlo en el pico y lanzarlo con Z: Francisco confirmó el ciclo jugando y añadió más completos. Daño 1 implementado contra zombis; su validación y casos límite de colisión/caducidad siguen pendientes.
 - [ ] Idea COM-14 — Registrar basureros para encontrar comida; medio completo inflige la mitad del daño de uno entero.
 - [ ] Idea COM-15 — Robar completos enteros de puestos o carritos; interacción y posibles consecuencias pendientes de diseño.
 
@@ -120,9 +134,13 @@ Stamina y viento son reglas futuras. El primer encargo de aleteo excluía expres
 
 ## Enemigos y peligros
 
+- [ ] Por validar ENE-11 — Zombis detectan por proximidad y línea de visión, persiguen más rápido, anuncian antes de golpear y regresan a su punto inicial al perder la paloma. Código y pruebas de lógica listos; prueba en GameMaker pendiente.
+
+NPC amistoso propuesto: señora de las palomas, junto al paradero o una plaza, que ofrece semillas para recuperar vida. Comida curativa y recogida pendientes; por ahora solo está conectada su animación. Descansar junto a ella para recuperar stamina es una idea futura.
+
 Decisión vigente: el primer enemigo de Santiago será el oficinista zombi; la micro pasa a una etapa posterior.
 
-- [ ] Por validar ENE-09 — Oficinista zombi implementado con patrulla, aviso amarillo, golpe frontal rojo y recuperación. Sprite provisional estático; animación de maletín pendiente. Vida de 2 y daño por completo de 1. Falta compilar y probar jugando.
+- [ ] Por validar ENE-09 — Oficinista zombi con patrulla, persecución, preparación, golpe frontal y recuperación. Sprites de base y ataque conectados; golpe en cuarto frame sustituye los antiguos avisos por colores. Vida 2, daño recibido por completo o ala 1. Prueba integral y balance pendientes.
 - [ ] Idea ENE-10 — Vendedor de completos neutral que persigue con escoba si le roban comida; interacción y consecuencias por concretar.
 
 - [ ] Pendiente ENE-01 — Micro poseída de la demo: bocina de aviso, preparación y avance terrestre; saltarla o destruirla.
@@ -152,6 +170,9 @@ Estas criaturas y ubicaciones son propuestas del universo ficticio del juego; sa
 
 ## Arte, sonido y presentación
 
+- [ ] Por validar ART-11 — HUD de tres corazones: cada golpe válido elimina uno y a cero se reinicia el escenario. Francisco sustituyó el arte conservando el nombre spr_vida_pluma. Draw GUI utiliza el frame 0; los cuatro frames importados no se animan. Validación integral pendiente.
+- [ ] Por validar ART-12 — Fondo de Santiago importado como spr_fondo_santiago de 512×288. La capa Background sigue sin sprite en Room1; asignación, escala y prueba visual pendientes. Room1 mide 1366×768 y tiene cámaras desactivadas.
+
 - [x] ART-01 — Primer diseño de paloma dibujado a mano por el usuario y utilizado como base del prototipo.
 - [x] ART-02 — Bloque provisional de suelo `spr_ground` utilizado en el escenario.
 - [ ] Idea ART-03 — Mantener pixel art retro, siluetas legibles, paleta limitada, fondo transparente en sprites y humor visual durante el juego.
@@ -172,7 +193,7 @@ Herramientas exploradas: editor de GameMaker y PixelLab; Piskel y LibreSprite co
 - [ ] Por validar AGE-03 — Comprobar instalación y carga de los subagentes propuestos: `gm-investigador`, `gm-programador` y `gm-revisor`. Se describió un paquete, pero su funcionamiento local quedó pendiente.
 - [x] AGE-04 — Backlog incorporado a la raíz del proyecto el 2026-10-03.
 - [ ] Pendiente AGE-07 — Referenciar este backlog desde las instrucciones de Codex y Claude.
-- [ ] Idea AGE-05 — Guardar hitos jugables con Git; no hay confirmación en la conversación de repositorio ni commits.
+- [x] AGE-05 — Repositorio Git inspeccionado: rama development y remoto origin en github.com/fdelvalle01/pluma-brava; commit inicial existente. Francisco solicita consolidación, commit y push del avance actual el 2026-10-04. El resultado de publicación se informa tras ejecutarla.
 - [ ] Idea AGE-06 — Evaluar OpenSpec al desarrollar una funcionalidad que necesite requisitos, escenarios, criterios de aceptación y tareas. Por ahora se acordó documentación Markdown sencilla.
 
 ### Reglas compartidas para Codex y Claude
@@ -190,7 +211,9 @@ Herramientas exploradas: editor de GameMaker y PixelLab; Piskel y LibreSprite co
 
 ## Próximo paso registrado
 
-Actualización de prioridad: animación con Z (ANI-10) confirmada por Francisco. Probar ahora recogida y lanzamiento de un completo (COM-13), implementados en los eventos existentes. Aleteo/planeo sigue pendiente de validación. El orden anterior se conserva a continuación como antecedente.
+Prioridad vigente (2026-10-04): probar COM-16, el golpe individual con X, hacia ambos lados, daño único y regreso a controles normales. Después preparar y conectar el combo de tres golpes COM-17, con autorización de Francisco. No dar por implementados el combo ni los shurikens por tener un primer sprite de ataque.
+
+Los párrafos siguientes conservan el orden inicial como antecedente; no reemplazan esta prioridad ni los controles vigentes de PROJECT_STATUS.md.
 
 Probar el aleteo/planeo ya implementado (`MOV-06` a `MOV-09`, `ANI-06`; PB-002A en PROJECT_STATUS.md). El registro local informa revisión estática y compilación Windows exitosa el 2026-10-03; falta prueba jugable de Francisco. Parámetros documentados: `flap_force = 3.0`, `flap_max_rise_speed = 9.0`, `glide_gravity = 0.12` y `glide_max_fall_speed = 2.2`. Después retomar reaparición, encuadre, pistola/blanco y primer enemigo. Este orden orienta el trabajo y no autoriza cambios por sí mismo.
 
@@ -203,5 +226,6 @@ Prueba de cierre del aleteo: caminar → saltar → pulsar varias veces para gan
 | 2026-10-03 | MOV-01 a MOV-03, NIV-01 | El usuario confirma que compila, abre, se mueve, salta y tiene suelo. |
 | 2026-10-03 | ANI-01 a ANI-04, ART-01 y ART-02 | Creación y uso de recursos descritos; usuario confirma máscara y animación visible. |
 | 2026-10-03 | AGE-01 | La conversación registra entrega del paquete documental; instalación y carga pendientes. |
+| 2026-10-04 | ANI-15 | Francisco confirmó el efecto de polvo al aterrizar de picada y realizó retoques artísticos. |
 
 Para nuevos cierres, añadir una fila con la prueba concreta y quién la confirmó. Si una función deja de cumplirla, reabrir su casilla y registrar el motivo.

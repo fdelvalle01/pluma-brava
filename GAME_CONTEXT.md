@@ -4,7 +4,17 @@
 
 ## 1. La idea
 
-### Decisión vigente: ataque desde el pico
+### Diseño vigente al 2026-10-04
+
+La fase actual es pulir una base jugable de la paloma en Santiago. Hay aleteo y planeo, carga con Espacio e impulso al soltar, disparo de completos con Z, picada aérea con Z sin comida y un golpe individual de ala con X. El salto desde suelo usa doble toque de Espacio. La abuelita anima al acercarse y los oficinistas persiguen y golpean; los detalles de implementación y validación están en PROJECT_STATUS.md.
+
+El siguiente diseño de combate es un combo X-X-X: corte con un ala, corte contrario y remate giratorio que avanza atravesando enemigos pero se detiene ante paredes. El remate tendrá preparación dentro de su animación; mantener X para un golpe cargado independiente fue una propuesta anterior, no la prioridad acordada. El combo aún no está implementado.
+
+Los futuros shurikens de pluma tendrán munición propia y gastarán una unidad al aparecer el proyectil. Los corazones representan salud; no se consumen al lanzar plumas. C, la cantidad inicial y el máximo de munición siguen como propuestas. El daño de picada y la curación con semillas siguen pendientes.
+
+Francisco controla y retoca el arte; PixelLab ayuda con borradores, no garantiza poses ni continuidad del combo. El fondo de Santiago tiene un sprite importado, aún no asignado a Background en el archivo actual de Room1. Las secciones siguientes conservan el diseño inicial: ante diferencias, prevalece este resumen y el estado verificado en PROJECT_STATUS.md.
+
+### Antecedente: ataque desde el pico
 
 Primer enemigo elegido: oficinista zombi de Santiago. Patrulla, avisa y da un golpe frontal corto de maletín; la paloma lo esquiva saltando o lo derrota con completos. La micro se pospone. El prototipo usa el dibujo estático del usuario y colores de aviso/impacto hasta que prepare animaciones. Balance inicial para probar: dos completos derrotan al zombi y tres golpes recibidos reinician el escenario.
 

@@ -29,8 +29,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"PlumaBrava",
-    "path":"PlumaBrava.yyp",
+    "name":"main_player",
+    "path":"folders/main_player.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

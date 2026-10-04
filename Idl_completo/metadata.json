@@ -1,0 +1,36 @@
+{
+  "group_id": "81802243-239f-40ad-ba44-d758da6c4513",
+  "states": [
+    {
+      "character": {
+        "id": "54ce1a89-3fb5-4563-b3b7-d81ad4d6570d",
+        "name": "Idle",
+        "prompt": "Create a single Chilean completo italiano as a pixel-art item for a humorous 2D side-scrolling game set in Santiago.\n\nShow a delicious, slightly exaggerated hot dog: golden toasted bread, a reddish sausage, generous chunky green avocado, small red tomato pieces and a thick zigzag of white mayonnaise. The toppings should form distinct, readable color shapes.\n\nGive it handmade street-food personality: slightly uneven bread, overflowing avocado and one small mayonnaise drip attached to the sandwich. Make it appetizing and playful.\n\nStrict side view, horizontal orientation, entire item centered inside a 32x32 pixel canvas with a small transparent margin.\n\nCrisp pixel edges, limited palette, clean dark outline, simple shading and a strong silhouette readable at actual game size. Low detail, consistent with a charming retro pixel-art platformer.\n\nThis same sprite will be picked up and launched as a projectile.\n\nTransparent background. One complete sandwich only. No plate, wrapper, hands, face, text, scenery, floating particles or motion effects.",
+        "size": {
+          "width": 32,
+          "height": 32
+        },
+        "template_id": "custom",
+        "directions": 8,
+        "view": "side",
+        "created_at": "2026-10-04T00:21:48.406212+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "south-east": "Idle/rotations/south-east.png",
+          "east": "Idle/rotations/east.png",
+          "north-east": "Idle/rotations/north-east.png",
+          "north": "Idle/rotations/north.png",
+          "north-west": "Idle/rotations/north-west.png",
+          "west": "Idle/rotations/west.png",
+          "south-west": "Idle/rotations/south-west.png"
+        },
+        "animations": {}
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-10-04T00:24:09.052225"
+}
